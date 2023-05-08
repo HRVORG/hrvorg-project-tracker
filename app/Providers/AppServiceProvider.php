@@ -3,6 +3,10 @@
 namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
+use App\Providers\RegisterApplication;
+
+// Register Service
+use App\Services\Authentication\Login;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -13,7 +17,11 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        //
+        $register_provider = new RegisterApplication;
+
+        foreach ($register_provider->register() as $value) {
+            $this->registerService($value['service_name'], $value['service_class']);
+        }
     }
 
     /**
@@ -24,5 +32,11 @@ class AppServiceProvider extends ServiceProvider
     public function boot()
     {
         //
+    }
+
+    private function registerService($serviceName, $className) {
+        $this->app->singleton($serviceName, function() use ($className) {
+            return new $className;
+        });
     }
 }
