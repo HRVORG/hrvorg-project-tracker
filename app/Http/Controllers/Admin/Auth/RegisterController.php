@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin\Auth;
 
-// use App\Http\Requests\RegisterRequest;
+use App\Http\Controllers\Controller;
 use App\Models\User;
 
 class RegisterController extends Controller
@@ -20,8 +20,10 @@ class RegisterController extends Controller
             'password' => 'required|min:5|max:255',
             'terms' => 'required'
         ]);
-        $user = User::create($attributes);
-        auth()->login($user);
+
+        $user = app('register')->execute($attributes);
+
+        auth()->login($user['data']);
 
         return redirect('/dashboard');
     }
