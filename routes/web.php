@@ -33,8 +33,8 @@ Route::group(['middleware' => 'guest'], function() {
     Route::post('/register', [RegisterController::class, 'store'])->name('register.perform');
 });
 
-Route::group(['middleware' => 'auth'], function () {
-	Route::get('/dashboard', [HomeController::class, 'index'])->name('home');
+Route::group(['middleware' => 'auth', 'prefix' => 'dashboard'], function () {
+	Route::get('/', [HomeController::class, 'index'])->name('home');
 	Route::get('/virtual-reality', [PageController::class, 'vr'])->name('virtual-reality');
 	Route::get('/rtl', [PageController::class, 'rtl'])->name('rtl');
 	Route::get('/profile', [UserProfileController::class, 'show'])->name('profile');
