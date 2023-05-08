@@ -5,9 +5,6 @@ namespace App\Providers;
 use Illuminate\Support\ServiceProvider;
 use App\Providers\RegisterApplication;
 
-// Register Service
-use App\Services\Authentication\Login;
-
 class AppServiceProvider extends ServiceProvider
 {
     /**
